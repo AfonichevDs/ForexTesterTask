@@ -30,7 +30,6 @@ export async function initApp() {
 
     try {
       showLoader();
-      setTimeout(() => {}, 10000);
       await forexDataService.loadForexData(DataSourcesMap[selectedPair]);
       const data = forexDataService.getData();
 

@@ -1,4 +1,4 @@
-export interface IBar {
+export interface Bar {
     Time: number;
     Open: number;
     High: number;

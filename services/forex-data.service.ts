@@ -1,5 +1,5 @@
 import { CurrenciesOptions, CurrenciesToSourceMap } from "../types/CurrenciesOptions.enum.js";
-import { IForexPeriodData } from "../types/IForexPeriodData.type.js";
+import { ForexPeriodData } from "../types/ForexPeriodData.type.js";
 import { usdEurDataUrl, usdJpyDataUrl } from "../utils/constants.js";
 
 const DataSourcesMap: CurrenciesToSourceMap = {
@@ -12,7 +12,7 @@ export const ForexDataServiceEvents = {
 }
 
 export class ForexDataService extends EventTarget {
-  private data: IForexPeriodData[] | null = null;
+  private data: ForexPeriodData[] | null = null;
 
   constructor() {
     super();
@@ -23,10 +23,10 @@ export class ForexDataService extends EventTarget {
 
     this.data = await response.json();
 
-    this.dispatchEvent(new CustomEvent(ForexDataServiceEvents.DATA_LOADED, { detail: this.data }));
+    this.dispatchEvent(new CustomEvent(ForexDataServiceEvents.DATA_LOADED));
   }
 
-  public get(): IForexPeriodData[] | null {
+  public get(): ForexPeriodData[] | null {
     return this.data;
   }
 }

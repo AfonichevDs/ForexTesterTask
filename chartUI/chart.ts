@@ -1,11 +1,11 @@
-import { IForexPeriodData } from "../types/IForexPeriodData.type.js";
-import { IBar } from "../types/IBar.type.js";
+import { ForexPeriodData } from "../types/ForexPeriodData.type.js";
+import { Bar } from "../types/Bar.type.js";
 import { ChartOptions } from "./chartOptions.js";
 import { formatDateTime } from "../utils/dateUtils.js";
 
 export class Chart {
   private ctx: CanvasRenderingContext2D;
-  private forexData: IForexPeriodData[] | null = null;
+  private forexData: ForexPeriodData[] | null = null;
 
   private isDragging: boolean = false;
   private dragStartX: number = 0;
@@ -35,11 +35,9 @@ export class Chart {
     this.render();
   }
 
-  public setData(data: IForexPeriodData[]): void {
+  public setData(data: ForexPeriodData[]): void {
     this.forexData = data;
-    if(this.initialized) {
-      this.render();
-    }
+    this.render();
   }
 
   public set showVolume(value: boolean) {
@@ -87,6 +85,10 @@ export class Chart {
   }
 
   private render() {
+    if(!this.initialized) {
+      return;
+    }
+    
     this.clearChart();
     this.drawAxes();
 
@@ -134,7 +136,7 @@ export class Chart {
     return topMargin + (maxPrice - price) * (chartHeight / priceRange);
   }
 
-  private drawBars(data: IForexPeriodData[], minPrice: number, maxPrice: number): void {
+  private drawBars(data: ForexPeriodData[], minPrice: number, maxPrice: number): void {
     const bars = data.flatMap((x) => x.Bars);
 
     const totalBarWidth =
@@ -202,7 +204,7 @@ export class Chart {
     });
   }
 
-  private drawVolume(bar: IBar, maxVolume: number, xCoord: number): void {
+  private drawVolume(bar: Bar, maxVolume: number, xCoord: number): void {
     const bottomAxisY = this.canvas.height - 20;
     if (maxVolume === 0) return;
 

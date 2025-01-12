@@ -1,41 +1,56 @@
 body {
-    background-color: #3b3b3b;
-    margin: 0; 
-    padding: 0; 
-    overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #3b3b3b;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+#controls {
+  display: flex;
+  align-items: center; /* Vertically align the items */
+  gap: 10px;
+  margin-bottom: 20px;
 }
 
 #chartCanvas {
-    border: 1px solid #ccc;
-    display: block;
-    margin: 0 auto;
+  border: 1px solid #ccc;
+  display: block;
+  margin: 0 auto;
 }
 
 #volumeLabel {
-    color: #fff;
+  color: #fff;
 }
 
 #pairSelect {
-    min-height: 30px;
-    min-width: 100px;
-    margin: 10px 120px;
+  min-height: 30px;
+  min-width: 120px;
+  margin: 10px 120px;
 }
 
 #loader {
-    display: none;
-    position: absolute; 
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    border: 16px solid #f3f3f3; /* Light grey */
-    border-top: 16px solid #3498db; /* Blue */
-    border-radius: 50%;
-    width: 120px;
-    height: 120px;
-    animation: spin 2s linear infinite;
+  display: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 16px solid #f3f3f3; /* Light grey */
+  border-top: 16px solid #3498db; /* Blue */
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
   }
-  
-  @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+  100% {
+    transform: rotate(360deg);
   }
+}

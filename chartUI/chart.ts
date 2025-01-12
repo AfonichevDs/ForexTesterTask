@@ -1,7 +1,7 @@
-import { IForexPeriodData } from "./types/IForexPeriodData.type.js";
-import { IBar } from "./types/IBar.type.js";
-import { ChartOptions } from "./utils/chartOptions.js";
-import { formatDateTime } from "./utils/utils.js";
+import { IForexPeriodData } from "../types/IForexPeriodData.type.js";
+import { IBar } from "../types/IBar.type.js";
+import { ChartOptions } from "./chartOptions.js";
+import { formatDateTime } from "../utils/dateUtils.js";
 
 export class Chart {
   private ctx: CanvasRenderingContext2D;
@@ -24,6 +24,9 @@ export class Chart {
     private readonly chartOptions: ChartOptions
   ) {
     this.ctx = canvas.getContext("2d") as CanvasRenderingContext2D;
+
+    canvas.width = window.screen.width * chartOptions.chartHeight;
+    canvas.height = window.screen.height * chartOptions.chartWidth;
   }
 
   public init() {
@@ -97,9 +100,8 @@ export class Chart {
       this.totalDataWidth = bars.length * currBarWidth;
       console.log(this.totalDataWidth);
   
-      // Draw Y-axis labels first so bars go "on top"
       this.drawYAxisLabels(minPrice, maxPrice);
-      // Then draw candlesticks / volume
+
       this.drawBars(this.forexData, minPrice, maxPrice);
     }
   }
@@ -172,7 +174,7 @@ export class Chart {
         const currentTime = period.ChunkStart + bar.Time;
         if (
           currentTime - lastLabelTime >=
-          this.chartOptions.DATE_PERIOD_DISPLAY
+          this.chartOptions.datePeriodDisplay
         ) {
           const dateLabel = formatDateTime(currentTime);
           this.ctx.fillStyle = "#fff";
@@ -229,14 +231,11 @@ export class Chart {
       const price = minPrice + i * stepValue;
       const y = this.priceToY(price, minPrice, maxPrice);
   
-      // Draw a horizontal grid line (optional)
       this.ctx.beginPath();
       this.ctx.moveTo(0, y);
       this.ctx.lineTo(this.canvas.width, y);
       this.ctx.stroke();
   
-      // Draw the label at the right edge
-      // (Minus some padding so text isn’t right on the border)
       this.ctx.fillText(price.toFixed(4), this.canvas.width - 5, y);
     }
   }

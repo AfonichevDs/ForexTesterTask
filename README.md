@@ -3,8 +3,9 @@ How to run:
 First option 
 
 1. Install Vs Code live server extension
-2. in terminal run "npx tsc"
-3. Index.html -> "Open with live server"
+2. npm i
+3. in terminal run "npx tsc"
+4. Index.html -> "Open with live server"
 
 Second option (doesn't depend on editor, using lite-server):
 

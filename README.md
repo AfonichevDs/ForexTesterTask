@@ -9,4 +9,5 @@ First option
 Second option (doesn't depend on editor, using lite-server):
 
 1. npm i
-2. npm run start
+2. npx tsc
+3. npm run start
